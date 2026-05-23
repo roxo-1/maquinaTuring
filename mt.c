@@ -29,18 +29,18 @@ int main() {
     int num_estados, num_transicoes, num_palavras;
     Transicao tabela[MAX_TRANSICOES];
 
-    // 1. LEITURA DAS CONFIGURAÇÕES (do arquivo entrada.txt)
-    // Lê o alfabeto (Σ + Γ) 
+    // lê o arquivo:
+    // Lê o alfabeto
     if (fscanf(entrada, "%s", alfabeto) == EOF) return 0;
     
     // Lê número de estados (estado inicial = 1, aceitação = último) 
     fscanf(entrada, "%d", &num_estados);
     
-    // Lê o número de transições [cite: 45]
+    // Lê o número de transições
     fscanf(entrada, "%d", &num_transicoes);
 
     for (int i = 0; i < num_transicoes; i++) {
-        // Formato: estado_atual leitura gravar mover proximo_estado [cite: 51]
+        // Formato: estado_atual leitura gravar mover proximo_estado
         fscanf(entrada, "%d %c %c %c %d", 
               &tabela[i].estado_origem, 
               &tabela[i].leitura, 
@@ -49,7 +49,7 @@ int main() {
               &tabela[i].estado_destino);
     }
 
-    // 2. PROCESSAMENTO DAS PALAVRAS
+    // proceessa palavra
     fscanf(entrada, "%d", &num_palavras);
     int estado_aceitacao = num_estados; 
 
@@ -67,7 +67,7 @@ int main() {
         int cabecote = 0;
         bool parou = false;
 
-        // Simulação baseada na função de mapeamento δ: Q x Γ -> Q x Γ x {E, D} [cite: 21]
+        // Simulação baseada na função de mapeamento
         while (estado_atual != estado_aceitacao && !parou) {
             bool encontrou_transicao = false;
 
@@ -89,7 +89,7 @@ int main() {
             if (!encontrou_transicao) parou = true;
         }
 
-        // 3. GRAVAÇÃO NA SAÍDA (no arquivo saida.txt) 
+        // saída 
         fprintf(saida, "%d: %s %s\n", p, palavra, (estado_atual == estado_aceitacao ? "OK" : "not OK"));
     }
 
